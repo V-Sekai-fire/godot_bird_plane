@@ -22,5 +22,5 @@ extern "C" Variant _process_parent_child(double delta, Node3D parent, Node3D chi
 	last_transform.set_basis(parent_transform.get_basis().slerp(last_transform.get_basis(), smoothness / 2));
 	child.set_transform(last_transform);
 
-	return Nil;
+	return Nil; //3452
 }

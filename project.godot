@@ -23,6 +23,7 @@ window/size/fullscreen=true
 
 [editor]
 
+script/async_compilation=false
 script/debug_info=true
 
 [filesystem]
