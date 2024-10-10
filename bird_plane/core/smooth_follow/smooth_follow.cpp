@@ -18,7 +18,7 @@ extern "C" Variant _process_parent_child(double delta, Node3D parent, Node3D chi
 	}
 
 	Transform3D parent_transform = parent.get_transform();
-	last_transform = parent_transform.interpolate_with(last_transform, smoothness);
+	last_transform = last_transform.interpolate_with(parent_transform, smoothness);
 	last_transform.set_basis(parent_transform.get_basis().slerp(last_transform.get_basis(), smoothness / 2));
 	child.set_transform(last_transform);
 

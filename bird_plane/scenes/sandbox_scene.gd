@@ -13,14 +13,12 @@ func _process(delta: float):
 	smooth_follow._process_parent_child(delta, plane, camera)
 	thrust._physics_process_plane(delta, plane)
 
-
 func _physics_process(_delta) -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	#$Turning._physics_process_plane(delta, plane)
-	
+
 func _input(event: InputEvent):
 	var plane: Node3D = get_node("Plane")
 
 	if event is InputEventMouseMotion:
-		mouse_speed = mouse_speed.lerp(event.get_relative() / 1000, sensitivity);
 		turning._input_plane(event, plane, mouse_speed)
