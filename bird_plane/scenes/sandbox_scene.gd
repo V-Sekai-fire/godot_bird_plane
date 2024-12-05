@@ -7,6 +7,16 @@ extends Node3D
 var sensitivity: float
 var mouse_speed: Vector2
 
+func simple_method_filter(sandbox, obj, method: String) -> bool:
+	# TODO: Record the actual methods needed, dump them on exit and add them here
+	return method != "free" && method != "queue_free"
+
+func _ready() -> void:
+	# Enable restrictions, but make exceptions for most methods on objects
+	smooth_follow.set_method_allowed_callback(simple_method_filter)
+	thrust.set_method_allowed_callback(simple_method_filter)
+	turning.set_method_allowed_callback(simple_method_filter)
+
 func _process(delta: float):
 	var plane: Node3D = get_node("Plane")
 	var camera: Node3D = get_node("Camera")

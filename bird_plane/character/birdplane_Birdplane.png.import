@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djkbvji77h3vk"
+uid="uid://dwcwv7nu1stdq"
 path.s3tc="res://.godot/imported/birdplane_Birdplane.png-3565993fdfdbaf2c416a00b89adeb0b1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "a4645160149d01531fe439971d81acb8"
 }
 
 [deps]

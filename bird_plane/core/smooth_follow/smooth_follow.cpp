@@ -1,19 +1,19 @@
 #include "api.hpp"
 
-static float smoothness = 1.0f;
+static float smoothness = 0.9f;
 
 SANDBOXED_PROPERTIES(1, {
 	.name = "smoothness",
 	.type = Variant::FLOAT,
 	.getter = []() -> Variant { return smoothness; },
 	.setter = [](Variant value) -> Variant { smoothness = value; return smoothness; },
-	.default_value = 1.0f,
+	.default_value = smoothness,
 });
 
 static Transform3D last_transform = Transform3D::identity();
 
 extern "C" Variant _process_parent_child(double delta, Node3D parent, Node3D child) {
-	if (Engine::is_editor_hint()) {
+	if (is_editor_hint()) {
 		return Nil;
 	}
 
@@ -22,5 +22,13 @@ extern "C" Variant _process_parent_child(double delta, Node3D parent, Node3D chi
 	last_transform.set_basis(parent_transform.get_basis().slerp(last_transform.get_basis(), smoothness / 2));
 	child.set_transform(last_transform);
 
-	return Nil; //3452
+	return Nil;
 }
+
+SANDBOX_API({
+	.name = "_process_parent_child",
+	.address = (void*)&_process_parent_child,
+	.description = "Makes the plane smoothly follow the camera direction",
+	.return_type = "void",
+	.arguments = "double delta, Node3D parent, Node3D child",
+});

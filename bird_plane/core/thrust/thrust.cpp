@@ -1,7 +1,7 @@
 #include "api.hpp"
 
 static float velocity = 0;
-static float thrust = 250;
+static float thrust = 300;
 static float thrust_limit = 500;
 static float thrust_delta = 0;
 static float gravity_influence = 100;
@@ -12,7 +12,7 @@ SANDBOXED_PROPERTIES(6, {
 	.type = Variant::FLOAT,
 	.getter = []() -> Variant { return velocity; },
 	.setter = [](Variant value) -> Variant { velocity = value; return velocity; },
-	.default_value = 0.f,
+	.default_value = velocity,
 }, {
 	.name = "thrust",
 	.type = Variant::FLOAT,
@@ -67,11 +67,13 @@ extern "C" Variant _physics_process_plane(double delta, Node3D plane) {
 	transform = transform.translated_local(target_vector * delta);
 	plane.set_transform(transform);
 
-	// if (frame_counter == 0) {
-	// 	print("thrust: %d\n", int(thrust * 1000));
-	// 	print("y_ang: %d\n", int(y_ang * 1000));
-	// 	print("velocity: %d\n", int(velocity * 1000));
-	// }
-
 	return Nil;
 }
+
+SANDBOX_API({
+	.name = "_physics_process_plane",
+	.address = (void*)&_physics_process_plane,
+	.description = "Thrust calculations",
+	.return_type = "void",
+	.arguments = "double delta, Node3D plane",
+});

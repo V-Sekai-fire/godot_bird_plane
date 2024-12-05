@@ -1,3 +1,4 @@
 .godot/
 *.o
 *.TMP
+generated_api.hpp
